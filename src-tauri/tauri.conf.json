@@ -1,0 +1,73 @@
+{
+  "package": {
+    "productName": "MeetPlan",
+    "version": "0.1.0"
+  },
+  "build": {
+    "distDir": "../public",
+    "devPath": "http://localhost:8080",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "io.github.mytja.beziapp",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "resources": [],
+      "externalBin": [],
+      "copyright": "Mitja Ševerkar, BežiApp Team",
+      "category": "DeveloperTool",
+      "shortDescription": "BežiApp is an app, that integrates all Bežigrad Grammar School services into one.",
+      "longDescription": "",
+      "deb": {
+        "depends": []
+      },
+      "macOS": {
+        "frameworks": [],
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "providerShortName": null,
+        "entitlements": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "updater": {
+      "active": false
+    },
+    "allowlist": {
+      "fs": {
+        "writeFile": true
+      },
+      "dialog": {
+        "save": true
+      },
+      "http": {
+        "request": true
+      }
+    },
+    "windows": [
+      {
+        "title": "BežiApp",
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "maximized": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  }
+}

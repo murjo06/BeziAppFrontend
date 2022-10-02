@@ -1,0 +1,99 @@
+<script lang="ts">
+    import Drawer, {
+        Content,
+        Header,
+        Title,
+        Scrim,
+    } from '@smui/drawer';
+    import List, {Item, Text, Graphic} from '@smui/list';
+    import { navigate } from "svelte-navigator";
+    import IconButton from "@smui/icon-button";
+    import isMobile from "is-mobile";
+
+    import {useLocation} from "svelte-navigator";
+    import Cookies from "js-cookie";
+
+    const location = useLocation();
+
+    let active = "";
+    let meetingActive: string = undefined;
+    let communicationActive: string = undefined;
+    let communications = [];
+    let communicationUnread = {};
+    let unreadMessages;
+
+    let allPaths = {};
+
+    let lastUrl = "";
+    let showDrawer = false;
+    let hasRequested = false;
+
+    $: (async () => {
+        statusFunction(open);
+        if (!($location.pathname === "/login" || $location.pathname === "/register")) {
+            showDrawer = true;
+
+            const token = Cookies.get("key");
+            if (token === null || token === undefined) {
+                navigate("/login");
+            }
+
+            let path = $location.pathname;
+            if (path === lastUrl) {
+                return
+            }
+
+            lastUrl = path;
+            allPaths = {
+                "/": "pregled",
+                "/lopolis": "lopolis"
+            }
+            active = allPaths[path]
+            return
+        }
+
+        showDrawer = false;
+    })()
+
+    const mobile = isMobile();
+    export let open: boolean;
+    export let statusFunction;
+</script>
+
+{#if showDrawer}
+    <Drawer variant={mobile ? "modal" : "dismissible"} fixed={false} style="position: absolute; top: 0;" bind:open>
+        <Header class="sameline">
+            <Title style="display:inline-block;">BežiApp</Title>
+            <div style="display:inline-block; float:right;">
+                <IconButton class="material-icons" aria-hidden="true" on:click={() => {
+                    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+                    localStorage.clear()
+                    navigate("/login")
+                }}>logout</IconButton>
+            </div>
+        </Header>
+        <Content>
+            <List>
+                <Item
+                        href="javascript:void(0)"
+                        on:click={() => navigate('/')}
+                        activated={active === 'pregled'}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">home</Graphic>
+                    <Text>Pregled</Text>
+                </Item>
+                <Item
+                        href="javascript:void(0)"
+                        on:click={() => navigate('/lopolis')}
+                        activated={active === 'lopolis'}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">lunch_dining</Graphic>
+                    <Text>Lo.Polis</Text>
+                </Item>
+            </List>
+        </Content>
+    </Drawer>
+    {#if mobile}
+        <Scrim fixed={false} />
+    {/if}
+{/if}
