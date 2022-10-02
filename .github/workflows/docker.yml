@@ -26,5 +26,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: "./Dockerfile"
-          tags: ghcr.io/${{env.REPO}}/frontend:latest
+          tags: ghcr.io/${{env.REPO}}/beziapp/frontend:latest
           push: true
