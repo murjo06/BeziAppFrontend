@@ -1,80 +1,80 @@
-name: "Build app nightly release"
-on:
-  push:
-
-jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    outputs:
-      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: create release
-        id: create_release
-        uses: actions/create-release@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: commit-${{ github.sha }}
-          release_name: "Prerelease ${{ github.sha }}"
-          body: "See the assets to download this version and install."
-          draft: false
-          prerelease: true
-  build-tauri:
-    needs: create-release
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
-
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: install Rust stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-      - name: install app dependencies and build it
-        run: mkdir public/build && npm ci && npm i
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI: true
-        with:
-          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
-  build-capacitor:
-    needs: create-release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: install openjdk prerequisites
-        run: sudo apt install openjdk-11-jdk-headless
-      - name: prepare build
-        run: mkdir public/build && npm ci && npm i && TAURI=true npm run build && npx cap sync && npx cap copy
-      - name: build app
-        working-directory: android
-        run: ./gradlew assemble
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI: true
-        with:
-          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
+#name: "Build app nightly release"
+#on:
+#  push:
+#
+#jobs:
+#  create-release:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: 16
+#      - name: create release
+#        id: create_release
+#        uses: actions/create-release@v1.1.0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: commit-${{ github.sha }}
+#          release_name: "Prerelease ${{ github.sha }}"
+#          body: "See the assets to download this version and install."
+#          draft: false
+#          prerelease: true
+#  build-tauri:
+#    needs: create-release
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        platform: [macos-latest, ubuntu-latest, windows-latest]
+#
+#    runs-on: ${{ matrix.platform }}
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: 16
+#      - name: install Rust stable
+#        uses: actions-rs/toolchain@v1
+#        with:
+#          toolchain: stable
+#      - name: install dependencies (ubuntu only)
+#        if: matrix.platform == 'ubuntu-latest'
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+#      - name: install app dependencies and build it
+#        run: mkdir public/build && npm ci && npm i
+#      - uses: tauri-apps/tauri-action@v0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          TAURI: true
+#        with:
+#          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
+#  build-capacitor:
+#    needs: create-release
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: setup node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: 16
+#      - name: install openjdk prerequisites
+#        run: sudo apt install openjdk-11-jdk-headless
+#      - name: prepare build
+#        run: mkdir public/build && npm ci && npm i && TAURI=true npm run build && npx cap sync && npx cap copy
+#      - name: build app
+#        working-directory: android
+#        run: ./gradlew assemble
+#      - uses: tauri-apps/tauri-action@v0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          TAURI: true
+#        with:
+#          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
