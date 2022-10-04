@@ -6,7 +6,7 @@
     import Button, {Label} from "@smui/button";
     import IconButton from "@smui/icon-button";
 
-    import { navigate, Link } from "svelte-navigator";
+    import { navigate } from "svelte-navigator";
 
     import Snackbar, {Actions} from "@smui/snackbar";
     import type { SnackbarComponentDev } from '@smui/snackbar';
@@ -56,10 +56,23 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 35%;
+        width: 30%;
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         text-align: center;
+    }
+
+    @media only screen and (max-device-width: 800px) {
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
     }
 </style>
 
@@ -73,7 +86,7 @@
     <div class="center">
         <Paper>
             <h1>Prijava v {#if loginType === "gimsis"}BežiApp (GimSIS){:else}Lo.Polis{/if}</h1>
-            <Textfield type="text" bind:value={email} label="Uporabniško ime">
+            <Textfield type="text" bind:value={email} label="Uporabniško ime" style="width: 80%;" helperLine$style="width: 80%;">
                 <Icon class="material-icons" slot="leadingIcon">person</Icon>
             </Textfield>
             <p />
@@ -81,8 +94,8 @@
                 if (key.key === "Enter") {
                     login();
                 }
-            }} type="password" bind:value={password} label="Geslo">
-                <Icon class="material-icons" slot="leadingIcon">password</Icon>
+            }} type="password" bind:value={password} label="Geslo" style="width: 80%;" helperLine$style="width: 80%;">
+                <Icon class="material-icons" slot="leadingIcon">key</Icon>
             </Textfield>
             <p />
             <Button on:click={async () => await login()} variant="raised">

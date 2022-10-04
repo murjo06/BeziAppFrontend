@@ -1,23 +1,24 @@
 <script lang="ts">
     import Tooltip, { Wrapper } from '@smui/tooltip';
-    import { link } from "svelte-navigator";
     import isMobile from "is-mobile";
     import randomColor from "randomcolor";
 
     export let n;
 
-    function getPreferredColorScheme() {
-        if (window.matchMedia) {
-            if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-                return 'dark';
-            } else {
-                return 'light';
-            }
-        }
-        return 'light';
-    }
+    // function getPreferredColorScheme() {
+    //     if (window.matchMedia) {
+    //         if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    //             return 'dark';
+    //         } else {
+    //             return 'light';
+    //         }
+    //     }
+    //     return 'light';
+    // }
+    //
+    // let preferred = getPreferredColorScheme();
 
-    let preferred = getPreferredColorScheme();
+    const preferred = "dark";
 
     const mobile: boolean = isMobile();
 </script>

@@ -3,8 +3,7 @@
 	import Drawer from "./Drawer.svelte";
 	import {AppContent, Scrim} from "@smui/drawer";
 	import Error from "./Widgets/Error.svelte";
-	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
-	import IconButton, {Icon, Label} from "@smui/button";
+	import {Icon, Label} from "@smui/button";
 	import isMobile from "is-mobile";
 	import Button from "@smui/button";
 
@@ -13,11 +12,11 @@
 </script>
 
 <div class="drawer-container">
-	<Router>
+	<Router let:location>
 		<Drawer open={open} statusFunction={(o) => open=o} />
 		<AppContent class="app-content">
 			<main class="main-content">
-				{#if mobile}
+				{#if mobile && !(document.location.pathname === "/login")}
 					<Button on:click={() => open = !open}>
 						<Icon class="material-icons">menu_open</Icon>
 						{#if open}
