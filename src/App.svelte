@@ -27,6 +27,20 @@
 					</Button>
 				{/if}
 				<div>
+					<Route path="/absences">
+						{#await import('./Absences.svelte') then Absences}
+							<Absences.default />
+						{:catch e}
+							<Error err={e} />
+						{/await}
+					</Route>
+					<Route path="/gradings">
+						{#await import('./Gradings.svelte') then Gradings}
+							<Gradings.default />
+						{:catch e}
+							<Error err={e} />
+						{/await}
+					</Route>
 					<Route path="/login">
 						{#await import('./Login.svelte') then Login}
 							<Login.default />

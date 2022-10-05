@@ -46,7 +46,9 @@
             lastUrl = path;
             allPaths = {
                 "/": "pregled",
-                "/lopolis": "lopolis"
+                "/gradings": "ocenjevanja",
+                "/absences": "izostanki",
+                "/lopolis": "lopolis",
             }
             active = allPaths[path]
             return
@@ -81,6 +83,22 @@
                 >
                     <Graphic class="material-icons" aria-hidden="true">home</Graphic>
                     <Text>Pregled</Text>
+                </Item>
+                <Item
+                        href="javascript:void(0)"
+                        on:click={() => navigate('/gradings')}
+                        activated={active === 'ocenjevanja'}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">grading</Graphic>
+                    <Text>Ocenjevanja</Text>
+                </Item>
+                <Item
+                        href="javascript:void(0)"
+                        on:click={() => navigate('/absences')}
+                        activated={active === 'izostanki'}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">rule</Graphic>
+                    <Text>Izostanki</Text>
                 </Item>
                 <Item
                         href="javascript:void(0)"
