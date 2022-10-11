@@ -2,6 +2,7 @@
     import Tooltip, { Wrapper } from '@smui/tooltip';
     import isMobile from "is-mobile";
     import randomColor from "randomcolor";
+    import BottomSheet from "./Widgets/BottomSheet.svelte";
 
     export let n;
 
@@ -21,6 +22,7 @@
     const preferred = "dark";
 
     const mobile: boolean = isMobile();
+    let open = false;
 </script>
 
 <style>
@@ -56,51 +58,58 @@
     .pos { position: relative; }
 </style>
 
-<div style="padding: 8px; min-width: 95%" class="inline">
-    <Wrapper>
-        <span tabindex="0" style="background-color: {randomColor({luminosity: preferred})}; padding: 5px; display: flex; width: 100%; display: inline-block; height: 40px; text-align: left;" class="pos">
-            <span style="font-size: 12px; font-weight: 700;">{n.kratko_ime}</span><br>
-            <span style="font-size: 10px;">
-                {#each n.profesor.split(" ") as t, i}
-                    {#if n.profesor.split(" ").length === i+1 && !mobile}
-                        {t[0].toUpperCase()}{t.substring(1)}
-                    {:else}
-                        {t[0].toUpperCase()}.
-                    {/if}
-                {/each}
-            </span>
-            <div
-                    class="triangle {n.vpisano_nadomescanje ? 'substitution' : ''} {n.fixed_by_sharepoint ? 'sharepoint-substitution' : ''}"
-            ></div>
-            <span class="classroom">
-                {#if mobile}
-                    {n.ucilnica.replace("Učilnica ", "").replace("Telovadnica", "T").replace("Predavalnica", "P")}
+<div style="padding: 8px; min-width: 95%" class="inline" on:click={() => open = true}>
+    <!--<Wrapper>-->
+    <span tabindex="0" style="background-color: {randomColor({luminosity: preferred})}; padding: 5px; display: flex; width: 100%; display: inline-block; height: 40px; text-align: left;" class="pos">
+        <span style="font-size: 12px; font-weight: 700;">{n.kratko_ime}</span><br>
+        <span style="font-size: 10px;">
+            {#each n.profesor.split(" ") as t, i}
+                {#if n.profesor.split(" ").length === i+1 && !mobile}
+                    {t[0].toUpperCase()}{t.substring(1)}
                 {:else}
-                    {n.ucilnica}
+                    {t[0].toUpperCase()}.
                 {/if}
-            </span>
+            {/each}
         </span>
-        <Tooltip unbounded hideDelay={0}>
-            <h1>{n.kratko_ime}</h1>
-            Predmet: <b>{n.ime}</b><br>
-            Profesor: <b>{n.profesor}</b><br>
-            Razred: <b>{n.razred}</b><br>
-            Dan: <b>{n.dan}</b><br>
-            Ura: <b>{n.ura}</b><br>
-
-            {#if n.dnevniski_zapis}
-                <b>Dnevniški zapis obstaja.</b><br>
+        <div
+                class="triangle {n.vpisano_nadomescanje ? 'substitution' : ''} {n.fixed_by_sharepoint ? 'sharepoint-substitution' : ''}"
+        ></div>
+        <span class="classroom">
+            {#if mobile}
+                {n.ucilnica.replace("Učilnica ", "").replace("Telovadnica", "T").replace("Predavalnica", "P")}
             {:else}
-                <b>Dnevniški zapis NE obstaja.</b><br>
+                {n.ucilnica}
             {/if}
-            {#if n.vpisano_nadomescanje}
-                <b>Nadomeščanje je vpisano v GimSIS-u.</b><br>
-            {/if}
-            {#if n.fixed_by_sharepoint}
-                <b>BežiApp je združil nadomeščanja na tej uri preko intraneta in GimSIS-a.</b><br>
-                Tip izostanka profesorja: <b>{n.tip_izostanka}</b><br>
-                Tip nadomeščanja: <b>{n.opis}</b>
-            {/if}
-        </Tooltip>
-    </Wrapper>
+        </span>
+    </span>
+    {#if !mobile}
+        <Wrapper>
+            <Tooltip unbounded hideDelay={0}>
+                <h1>{n.kratko_ime}</h1>
+                Predmet: <b>{n.ime}</b><br>
+                Profesor: <b>{n.profesor}</b><br>
+                Razred: <b>{n.razred}</b><br>
+                Dan: <b>{n.dan}</b><br>
+                Ura: <b>{n.ura}</b><br>
+
+                {#if n.dnevniski_zapis}
+                    <b>Dnevniški zapis obstaja.</b><br>
+                {:else}
+                    <b>Dnevniški zapis NE obstaja.</b><br>
+                {/if}
+                {#if n.vpisano_nadomescanje}
+                    <b>Nadomeščanje je vpisano v GimSIS-u.</b><br>
+                {/if}
+                {#if n.fixed_by_sharepoint}
+                    <b>BežiApp je združil nadomeščanja na tej uri preko intraneta in GimSIS-a.</b><br>
+                    Tip izostanka profesorja: <b>{n.tip_izostanka}</b><br>
+                    Tip nadomeščanja: <b>{n.opis}</b>
+                {/if}
+            </Tooltip>
+        </Wrapper>
+    {/if}
 </div>
+
+{#if mobile && open}
+    <BottomSheet open={open} callback={(value) => open=value} n={n} />
+{/if}

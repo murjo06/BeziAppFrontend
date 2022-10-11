@@ -109,3 +109,28 @@ button:focus {
 	flex-grow: 1;
 	overflow: auto;
 }
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+.column {
+	display: flex;
+	flex-direction: column;
+}
+.fill {
+	flex-grow: 1;
+	flex-shrink: 0;
+}
+.row.items-center,
+.column.items-center {
+	align-items: center;
+}
+.row.justify-center,
+.column.justify-center {
+	justify-content: center;
+}
+.row.justify-end,
+.column.justify-end {
+	justify-content: flex-end;
+}

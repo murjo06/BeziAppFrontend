@@ -157,7 +157,7 @@ Izbran mesec: <b>{selectedMonth}/{selectedYear}</b><p/>
                             <Select bind:value={selectedMeals[meal.local_id]} label="Izberite meni" style="width: 100%;">
                                 <Option value=""></Option>
                                 {#each meal.menu_options as m}
-                                    <Option value={m.value}>{insane(m.text)}</Option>
+                                    <Option value={m.value} style="height: 125%;">{insane(m.text)}</Option>
                                 {/each}
                             </Select>
                         </Content>
