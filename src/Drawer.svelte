@@ -48,6 +48,7 @@
                 "/": "pregled",
                 "/gradings": "ocenjevanja",
                 "/absences": "izostanki",
+                "/grades": "ocene",
                 "/lopolis": "lopolis",
             }
             active = allPaths[path]
@@ -91,6 +92,14 @@
                 >
                     <Graphic class="material-icons" aria-hidden="true">grading</Graphic>
                     <Text>Ocenjevanja</Text>
+                </Item>
+                <Item
+                        href="javascript:void(0)"
+                        on:click={() => navigate('/grades')}
+                        activated={active === 'ocene'}
+                >
+                    <Graphic class="material-icons" aria-hidden="true">grade</Graphic>
+                    <Text>Ocene</Text>
                 </Item>
                 <Item
                         href="javascript:void(0)"

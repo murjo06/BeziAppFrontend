@@ -27,6 +27,13 @@
 					</Button>
 				{/if}
 				<div>
+					<Route path="/grades">
+						{#await import('./Grades.svelte') then Grades}
+							<Grades.default />
+						{:catch e}
+							<Error err={e} />
+						{/await}
+					</Route>
 					<Route path="/absences">
 						{#await import('./Absences.svelte') then Absences}
 							<Absences.default />

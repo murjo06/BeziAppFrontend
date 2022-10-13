@@ -155,28 +155,7 @@
                 </div>
                 <button class="close-sheet" type="button" title="Close the sheet">&times;</button>
             </header>
-            <main class="body fill">
-                <h1>{n.kratko_ime}</h1>
-                Predmet: <b>{n.ime}</b><br>
-                Profesor: <b>{n.profesor}</b><br>
-                Razred: <b>{n.razred}</b><br>
-                Dan: <b>{n.dan}</b><br>
-                Ura: <b>{n.ura}</b><br>
-
-                {#if n.dnevniski_zapis}
-                    <b>Dnevniški zapis obstaja.</b><br>
-                {:else}
-                    <b>Dnevniški zapis NE obstaja.</b><br>
-                {/if}
-                {#if n.vpisano_nadomescanje}
-                    <b>Nadomeščanje je vpisano v GimSIS-u.</b><br>
-                {/if}
-                {#if n.fixed_by_sharepoint}
-                    <b>BežiApp je združil nadomeščanja na tej uri<br>preko intraneta in GimSIS-a.</b><br>
-                    Tip izostanka profesorja: <b>{n.tip_izostanka}</b><br>
-                    Tip nadomeščanja: <b>{n.opis}</b>
-                {/if}
-            </main>
+            <slot></slot>
         </div>
     </div>
 </main>
@@ -186,7 +165,6 @@
 
     export let open;
     export let callback;
-    export let n;
 
     const timer = ms => new Promise(res => setTimeout(res, ms))
 
