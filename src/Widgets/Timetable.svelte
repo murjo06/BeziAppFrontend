@@ -19,6 +19,8 @@
     import {makeRequest} from "../constants";
     import isMobile from "is-mobile";
     import MeetingCard from "../MeetingCard.svelte";
+    import {Icon} from "@smui/button";
+    import Tooltip, {Wrapper} from "@smui/tooltip";
 
     export let date: Date = new Date();
     let currentDate = new Date(date);
@@ -53,6 +55,8 @@
     export let subjectId: number;
     export let teacherId: number;
 
+    let warn;
+
     async function getTimetable() {
         console.log(fmtStart)
         console.log(classId, teacherId, subjectId)
@@ -64,6 +68,21 @@
         thu = r["classes"][3];
         fri = r["classes"][4];
         dates = r["days"];
+        warn = {
+            0: false,
+            1: false,
+            2: false,
+            3: false,
+            4: false
+        }
+        for (let i in r["classes"]) {
+            for (let n in r["classes"][i]) {
+                if (r["classes"][i][n].opozori === true) {
+                    warn[i] = true
+                    break;
+                }
+            }
+        }
     }
 
     const hours: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -91,11 +110,11 @@
     <table class="coolTable">
         <tr>
             <th>URA</th>
-            <th>{mobile ? "PON" : "PONEDELJEK"} {dates[0]}</th>
-            <th>{mobile ? "TOR" : "TOREK"} {dates[1]}</th>
-            <th>{mobile ? "SRE" : "SREDA"} {dates[2]}</th>
-            <th>{mobile ? "ČET" : "ČETRTEK"} {dates[3]}</th>
-            <th>{mobile ? "PET" : "PETEK"} {dates[4]}</th>
+            <th>{mobile ? "PON" : "PONEDELJEK"} {dates[0]} {#if warn[0] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
+            <th>{mobile ? "TOR" : "TOREK"} {dates[1]} {#if warn[1] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
+            <th>{mobile ? "SRE" : "SREDA"} {dates[2]} {#if warn[2] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
+            <th>{mobile ? "ČET" : "ČETRTEK"} {dates[3]} {#if warn[3] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
+            <th>{mobile ? "PET" : "PETEK"} {dates[4]} {#if warn[4] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
         </tr>
         {#each hours as m, i}
         <tr>
