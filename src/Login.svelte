@@ -12,6 +12,11 @@
     import type { SnackbarComponentDev } from '@smui/snackbar';
     import * as constants from "./constants";
     import Cookies from "js-cookie";
+    import {Content, Title} from "@smui/drawer";
+    import Subtitle from "@smui/paper/src/Subtitle";
+    import Notification from "./Widgets/Notification.svelte";
+
+    // <b style="color: rgba(0, 77, 50, 1);">Beži</b><span style="color: rgba(0, 128, 83, 1);">App</span>
 
     async function login() {
         let fd = new FormData();
@@ -66,7 +71,7 @@
         .center {
             margin: 0;
             position: absolute;
-            top: 50%;
+            top: 25%;
             left: 50%;
             width: 80%;
             -ms-transform: translate(-50%, -50%);
@@ -113,5 +118,11 @@
                 </Textfield>
             {/if}
         </Paper>
+        <p/>
     </div>
+    {#if loginType === "gimsis"}
+        <div style="bottom: 15px; position: fixed; left: 15px; right: 15px;">
+            <Notification/>
+        </div>
+    {/if}
 </main>

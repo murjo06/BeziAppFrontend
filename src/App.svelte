@@ -69,6 +69,13 @@
 							<Error err={e} />
 						{/await}
 					</Route>
+					<Route path="/about">
+						{#await import('./About.svelte') then About}
+							<About.default />
+						{:catch e}
+							<Error err={e} />
+						{/await}
+					</Route>
 					<Route path="/napaka">
 						{#await import('./ErrorPage.svelte') then ErrorPage}
 							<ErrorPage.default />
