@@ -60,16 +60,20 @@
     .pos { position: relative; }
 </style>
 
-<div style="padding: 8px; min-width: 95%" class="inline" on:click={() => open = true}>
+<div style="padding: 3px; min-width: 93%" class="inline" on:click={() => open = true}>
     <!--<Wrapper>-->
     <span tabindex="0" style="background-color: {uniqolor(n.kratko_ime, {saturation: [50, 60, 70], lightness: [20, 30, 40],}).color}; padding: 5px; display: flex; width: 100%; display: inline-block; height: 40px; text-align: left;" class="pos">
         <span style="font-size: 12px; font-weight: 700;">{n.kratko_ime}</span><br>
-        <span style="font-size: 10px;">
+        <span style="font-size: 10px;" class="sameline">
             {#each n.profesor.split(" ") as t, i}
                 {#if n.profesor.split(" ").length === i+1 && !mobile}
                     {t[0].toUpperCase()}{t.substring(1)}
                 {:else}
-                    {t[0].toUpperCase()}.
+                    {#if mobile}
+                        {t[0].toUpperCase()}
+                    {:else}
+                        <span class="inline">{t[0].toUpperCase()}.</span><div class="inline" style="width: 2px;"/>
+                    {/if}
                 {/if}
             {/each}
         </span>
