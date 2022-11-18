@@ -1,0 +1,66 @@
+{
+  "name": "BežiApp",
+  "short_name": "BežiApp",
+  "description": "Unofficial app for GimB students",
+
+  "start_url": "https://beziapp.meetplan.si",
+  "scope": "/",
+
+  "display": "standalone",
+  "orientation": "portrait-primary",
+
+  "background_color": "#008053",
+  "theme_color": "#004d32",
+  "icons": [
+    {
+      "src": "/icons/icon_48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/icons/icon_72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/icons/icon_96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/icons/icon_144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/icons/icon_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon_384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/icons/icon_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+
+  "dir": "auto",
+  "lang": "en-US",
+  "categories": [
+    "education",
+    "productivity",
+    "utilities"
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "tk.gimb.app"
+    }
+  ]
+}
