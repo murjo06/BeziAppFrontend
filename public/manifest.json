@@ -4,7 +4,7 @@
   "description": "Unofficial app for GimB students",
 
   "start_url": "https://beziapp.meetplan.si",
-  "scope": "/",
+  "scope": "",
 
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -50,7 +50,7 @@
   ],
 
   "dir": "auto",
-  "lang": "en-US",
+  "lang": "sl-SI",
   "categories": [
     "education",
     "productivity",
@@ -60,7 +60,7 @@
   "related_applications": [
     {
       "platform": "play",
-      "id": "tk.gimb.app"
+      "id": "com.mytja.beziapp"
     }
   ]
 }
