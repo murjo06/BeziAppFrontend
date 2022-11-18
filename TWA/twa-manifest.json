@@ -1,0 +1,41 @@
+{
+  "packageId": "com.mytja.beziapp",
+  "host": "beziapp.meetplan.si",
+  "name": "BežiApp",
+  "launcherName": "BežiApp",
+  "display": "fullscreen",
+  "themeColor": "#004D32",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#008053",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://beziapp.meetplan.si/icons/icon_512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/home/mitja/WebstormProjects/BežiApp/TWA/android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "2",
+  "appVersionCode": 2,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://beziapp.meetplan.si/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://beziapp.meetplan.si/",
+  "minSdkVersion": 19,
+  "orientation": "portrait-primary",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "2"
+}
