@@ -23,10 +23,13 @@
     let selectedMeals = {};
     let checkouts = {};
 
-    function selected_meals() {
-        for (let i in Object.keys(meals)) {
-            for (let m in meals[Object.keys(meals)[i]]) {
-                let meal = meals[Object.keys(meals)[i]][m];
+    async function selected_meals() {
+        await sleep(20);
+        selectedMeals = {};
+        const keys = Object.keys(meals);
+        for (let i in keys) {
+            for (let m in meals[keys[i]]) {
+                const meal = meals[keys[i]][m];
                 for (let k in meal.menu_options) {
                     if (meal.menu_options[k].selected) {
                         selectedMeals[meal.local_id] = meal.menu_options[k].value;
@@ -34,6 +37,8 @@
                 }
             }
         }
+        await sleep(20);
+        console.log(selectedMeals);
     }
 
     function assemble_meals() {
@@ -55,9 +60,13 @@
         console.log(meals);
     }
 
+    async function sleep(millisec = 0) {
+        return await new Promise(r => setTimeout(r, millisec));
+    }
+
     async function getMeals() {
         meals = await makeRequest(`/lopolis/meals?year=${selectedYear}&month=${selectedMonth}`)
-        selected_meals();
+        await selected_meals();
     }
 
     async function getCheckouts() {
@@ -78,10 +87,14 @@
         await getCheckouts();
     }
 
+    async function fetchData() {
+        await getMeals();
+        await getCheckouts();
+    }
+
     onMount(async () => {
         try {
-            await getMeals();
-            await getCheckouts();
+            await fetchData();
         } catch (e) {
             console.log(e)
             navigate("/lopolis/login")
