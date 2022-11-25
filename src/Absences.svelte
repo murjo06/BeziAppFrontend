@@ -9,13 +9,8 @@
     import insane from "insane";
     import FormField from "@smui/form-field";
     import Switch from "@smui/switch";
-    import Datepicker from "svelte-calendar-resurrected";
+    import { Datepicker } from "svelte-calendar";
     import dayjs from "dayjs";
-
-    let first = dayjs(new Date()).subtract(1, "month").toDate();
-    let last = new Date();
-    let startStore;
-    let endStore;
 
     let niObdelano = true;
     let opraviceno = true;
@@ -24,6 +19,8 @@
 
     let absences;
     let open = {};
+
+    const REQUIRED_FORMAT = 'DD.MM.YYYY';
 
     const datePickerTheme = {
         "calendar": {
@@ -57,13 +54,30 @@
     };
 
     async function getAbsences() {
-        absences = await makeRequest(`/absences?from_date=${startStore}&to_date=${endStore}&ni_obdelano=${niObdelano}&opraviceno=${opraviceno}&neopraviceno=${neopraviceno}&ne_steje=${neSteje}`)
+        absences = await makeRequest(`/absences?from_date=${date1}&to_date=${date2}&ni_obdelano=${niObdelano}&opraviceno=${opraviceno}&neopraviceno=${neopraviceno}&ne_steje=${neSteje}`)
         for (let i in absences.absences) {
             open[i] = [];
         }
     }
 
+    $: {
+        console.log($store1, $store2);
+        if ($store1 !== undefined) date1 = dayjs($store1.selected).format(REQUIRED_FORMAT);
+        if ($store2 !== undefined) date2 = dayjs($store2.selected).format(REQUIRED_FORMAT);
+    }
+
+    let store1;
+    let store2;
+
+    let date1 = "";
+    let date2 = "";
+
     onMount(async () => {
+        const TIME = dayjs();
+
+        date1 = TIME.format(REQUIRED_FORMAT);
+        date2 = TIME.add(1, 'M').format(REQUIRED_FORMAT);
+
         try {
             setTimeout(getAbsences, 200);
         } catch (e) {
@@ -75,11 +89,27 @@
 
 <div style="display: flex;">
     <h3>Izberite začetni datum: </h3>
-    <Datepicker bind:formattedSelected={startStore} startOfWeekIndex={1} selected={first} format={"#{j}.#{m}.#{Y}"} theme={datePickerTheme} />
+    <Datepicker bind:store={store1} let:key let:send let:receive theme={datePickerTheme}>
+        <button in:receive|local={{ key }} out:send|local={{ key }}>
+            {#if $store1?.hasChosen}
+                {date1}
+            {:else}
+                Izberite datum
+            {/if}
+        </button>
+    </Datepicker>
 </div>
 <div style="display: flex;">
     <h3>Izberite končni datum: </h3>
-    <Datepicker bind:formattedSelected={endStore} startOfWeekIndex={1} selected={last} format={"#{j}.#{m}.#{Y}"} theme={datePickerTheme} />
+    <Datepicker bind:store={store2} let:key let:send let:receive theme={datePickerTheme}>
+        <button in:receive|local={{ key }} out:send|local={{ key }}>
+            {#if $store2?.hasChosen}
+                {date2}
+            {:else}
+                Izberite datum
+            {/if}
+        </button>
+    </Datepicker>
 </div>
 <FormField>
     <Switch bind:checked={niObdelano} />
