@@ -71,7 +71,7 @@
         .center {
             margin: 0;
             position: absolute;
-            top: 25%;
+            top: 45%;
             left: 50%;
             width: 80%;
             -ms-transform: translate(-50%, -50%);
@@ -106,23 +106,15 @@
             <Button on:click={async () => await login()} variant="raised">
                 <Label>PRIJAVA</Label>
             </Button>
-            <p />
-            {#if constants.isTauri}
-                <Textfield on:change={() => {
-                    setTimeout(() => {
-                        localStorage.setItem("baseurl", url);
-                        constants.baseurl = url;
-                    }, 200)
-                }} type="url" bind:value={url} label="Povezava do strežnika">
-                    <Icon class="material-icons" slot="leadingIcon">link</Icon>
-                </Textfield>
+            {#if loginType === "gimsis"}
+                <p/>
+                <Notification/>
             {/if}
         </Paper>
         <p/>
     </div>
     {#if loginType === "gimsis"}
-        <div style="bottom: 15px; position: fixed; left: 15px; right: 15px;">
-            <Notification/>
-        </div>
+        <!--<div style="bottom: 15px; position: fixed; left: 15px; right: 15px;">-->
+        <!--</div>-->
     {/if}
 </main>
