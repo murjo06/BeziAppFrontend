@@ -31,7 +31,7 @@
             let response = await r.json();
             if (r.status === 200) {
                 if (loginType === "gimsis") {
-                    Cookies.set("key", response["session"], {sameSite: "strict"});
+                    Cookies.set("key", response["session"], {sameSite: "strict", expires: 365});
                     navigate("/")
                 } else {
                     navigate("/lopolis");
