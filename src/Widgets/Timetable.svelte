@@ -8,6 +8,10 @@
     a:link {
         text-decoration: none;
     }
+
+    .coolTable {
+        table-layout: fixed;
+    }
 </style>
 
 <script lang="ts">
@@ -109,7 +113,7 @@
 {:then _}
     <table class="coolTable">
         <tr>
-            <th>URA</th>
+            <th style="width: 0.5em;">URA</th>
             <th>{mobile ? "PON" : "PONEDELJEK"} {dates[0]} {#if warn[0] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
             <th>{mobile ? "TOR" : "TOREK"} {dates[1]} {#if warn[1] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
             <th>{mobile ? "SRE" : "SREDA"} {dates[2]} {#if warn[2] === true}<br><Wrapper><Icon class="material-icons">warning</Icon><Tooltip>BežiApp ni uspel preveriti vseh nadomeščanj z visoko stopnjo zanesljivosti. Prosimo, če ročno preverite nadomeščanja za ta dan.</Tooltip></Wrapper>{/if}</th>
