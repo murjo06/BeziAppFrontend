@@ -86,6 +86,26 @@
         }
     })
 </script>
+<style>
+    .mdc-drawer__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .mdc-drawer__title {
+        margin: 0;
+    }
+    .absence-date-select-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        grid-template-rows: 1fr 1fr;
+        align-content: center;
+        justify-items: center;
+    }
+    .absence-date-picker-button {
+        margin: 0 0 0 1em;
+    }
+</style>
 
 <div style="display: flex;">
     <h3>Izberite začetni datum: </h3>
