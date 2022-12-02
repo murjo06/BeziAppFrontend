@@ -106,11 +106,10 @@
         margin: 0 0 0 1em;
     }
 </style>
-
-<div style="display: flex;">
+<div class="absence-date-select-grid">
     <h3>Izberite začetni datum: </h3>
-    <Datepicker bind:store={store1} let:key let:send let:receive theme={datePickerTheme}>
-        <button in:receive|local={{ key }} out:send|local={{ key }}>
+    <Datepicker bind:store={store1} let:key let:send let:receive theme={datePickerTheme} style="min-height: auto">
+        <button in:receive|local={{ key }} out:send|local={{ key }} class="absence-date-picker-button mdc-button">
             {#if $store1?.hasChosen}
                 {date1}
             {:else}
@@ -118,11 +117,9 @@
             {/if}
         </button>
     </Datepicker>
-</div>
-<div style="display: flex;">
     <h3>Izberite končni datum: </h3>
-    <Datepicker bind:store={store2} let:key let:send let:receive theme={datePickerTheme}>
-        <button in:receive|local={{ key }} out:send|local={{ key }}>
+    <Datepicker bind:store={store2} let:key let:send let:receive theme={datePickerTheme} style="min-height: auto">
+        <button in:receive|local={{ key }} out:send|local={{ key }} class="absence-date-picker-button mdc-button mdc-button--raised mdc-ripple-upgraded">
             {#if $store2?.hasChosen}
                 {date2}
             {:else}
