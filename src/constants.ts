@@ -51,3 +51,6 @@ export const saveBlob = async blob => {
         window.open(_url, "_blank").focus();
     }
 }
+
+export const SUBJECTS: Array<string> = ["Matematika", "Slovenščina", "Angleščina", "Fizika", "Kemija", "Biologija","Geografija", "Zgodovina", "Informatika", "Glasba", "Likovna umetnost", "Nemščina", "Španščina", "Francoščina"];
+export const YEAR_ONE: Array<string> = ["1.A", "1.B", "1.C", "1.D", "1.E", "1.F", "1.G", "1.Š", "1.QA", "1.QB"];

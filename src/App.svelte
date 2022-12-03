@@ -7,6 +7,7 @@
 	import isMobile from "is-mobile";
 	import Button from "@smui/button";
 	import {onDestroy, onMount} from "svelte";
+  import Tests from "./Tests.svelte";
 
 	const mobile = isMobile();
 	let open = !mobile;
@@ -24,6 +25,11 @@
 	});
 </script>
 
+<div>
+	{#await import("./Tests.svelte") then Tests}
+		<Tests.default/>
+	{/await}
+</div>
 <div class="drawer-container">
 	<Router let:location>
 		<Drawer open={open} statusFunction={(o) => open=o} />
@@ -40,9 +46,9 @@
 					</Button>
 				{/if}
 				<div>
-					<Route path="/grades">
-						{#await import('./Grades.svelte') then Grades}
-							<Grades.default />
+					<Route path="/tests">
+						{#await import('./Tests.svelte') then Tests}
+							<Tests.default />
 						{:catch e}
 							<Error err={e} />
 						{/await}
