@@ -109,7 +109,7 @@
 <div class="absence-date-select-grid">
     <h3>Izberite začetni datum: </h3>
     <Datepicker bind:store={store1} let:key let:send let:receive theme={datePickerTheme} style="min-height: auto">
-        <button in:receive|local={{ key }} out:send|local={{ key }} class="absence-date-picker-button mdc-button">
+        <button in:receive|local={{ key }} out:send|local={{ key }} class="absence-date-picker-button mdc-button mdc-button--raised mdc-ripple-upgraded">
             {#if $store1?.hasChosen}
                 {date1}
             {:else}
