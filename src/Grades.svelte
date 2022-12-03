@@ -18,7 +18,11 @@
 
     getGrades();
 </script>
-
+<style>
+    .zacasna {
+        font-weight: 400 !important;
+    }
+</style>
 <FormField>
     <Switch bind:checked={stalne} />
     <span slot="label">Stalne ocene</span>
