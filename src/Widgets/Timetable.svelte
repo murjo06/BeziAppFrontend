@@ -3,14 +3,10 @@
         border-spacing: 5px;
         text-align: center;
         width: 100%;
+        table-layout: fixed;
     }
-
     a:link {
         text-decoration: none;
-    }
-
-    .coolTable {
-        table-layout: fixed;
     }
 </style>
 
