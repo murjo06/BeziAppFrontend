@@ -56,7 +56,7 @@
         },
         {
             name: "docker-compose",
-            desc: "docker-compose skrbi zato, da je vzdrževanje izjemno lahko",
+            desc: "docker-compose skrbi za to, da je vzdrževanje izjemno lahko",
             url: "https://github.com/mytja/BeziAppDocker",
         },
         {

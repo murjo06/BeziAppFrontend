@@ -102,6 +102,13 @@
 							<Error err={e} />
 						{/await}
 					</Route>
+					<Route path="/1d-chess">
+						{#await import('./1DChess.svelte') then Chess}
+							<Chess.default />
+						{:catch e}
+							<Error err={e} />
+						{/await}
+					</Route>
 					<Route path="/">
 						{#await import('./Home.svelte') then Home}
 							<Home.default />
