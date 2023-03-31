@@ -7,7 +7,7 @@
 	import isMobile from "is-mobile";
 	import Button from "@smui/button";
 	import {onDestroy, onMount} from "svelte";
-  import Tests from "./Tests.svelte";
+  	import Tests from "./Tests.svelte";
 
 	const mobile = isMobile();
 	let open = !mobile;
